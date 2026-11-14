@@ -43,10 +43,16 @@ def main():
     if len(sys.argv) != 2:
         print(__doc__)
         sys.exit(1)
+    gc_contents = []
+    num_seqs = 0
     for name, seq in read_fasta(sys.argv[1]):
         print(f"{name}\tGC = {100 * gc_content(seq):.1f}%")
+        gc_contents.append(int(100 * gc_content(seq)))
+        num_seqs += 1
         print(f"{name}\tAT = {100 * at_content(seq):.1f}%")
         print("Length: ", len(seq))
+    average_gc = (sum((gc_contents)))/num_seqs
+    print("The average GC content is: ", average_gc, "%")
 
 
 if __name__ == "__main__":
