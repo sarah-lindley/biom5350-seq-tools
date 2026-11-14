@@ -32,6 +32,12 @@ def gc_content(seq):
         return 0.0
     return sum(b in "GC" for b in counted) / len(counted)
 
+def at_content(seq):
+    """Return AT fraction of a sequence (0-1). Ignores N and other ambiguous bases."""
+    counted = [b for b in seq if b in "ACGT"]
+    if not counted:
+        return 0.0
+    return sum(b in "AT" for b in counted) / len(counted)
 
 def main():
     if len(sys.argv) != 2:
@@ -39,6 +45,7 @@ def main():
         sys.exit(1)
     for name, seq in read_fasta(sys.argv[1]):
         print(f"{name}\tGC = {100 * gc_content(seq):.1f}%")
+        print(f"{name}\tAT = {100 * at_content(seq):.1f}%")
         print("Length: ", len(seq))
 
 
