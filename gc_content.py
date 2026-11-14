@@ -39,6 +39,7 @@ def main():
         sys.exit(1)
     for name, seq in read_fasta(sys.argv[1]):
         print(f"{name}\tGC = {100 * gc_content(seq):.1f}%")
+        print("Length: ", len(seq))
 
 
 if __name__ == "__main__":
